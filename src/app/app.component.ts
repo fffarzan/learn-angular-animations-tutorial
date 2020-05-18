@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
-import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
+import { trigger, state, style, transition, animate, keyframes, group } from '@angular/animations';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   /**
-   * Using `keyframes` method. They're used during transition.
+   * Using `group` method. We use this method when we have multiple  
+   * animations in same time but different duration.
    */
   animations: [
     trigger('divState', [
@@ -93,6 +94,17 @@ import { trigger, state, style, transition, animate, keyframes } from '@angular/
           })
         ]))
       ]),
+      transition('* => void', [
+        group([
+          animate(300, style({
+            'color': 'red'
+          })),
+          animate(700, style({
+            'transform': 'translateX(50px)',
+            'opacity': 0
+          }))
+        ])
+      ])
     ])
   ]
 })
