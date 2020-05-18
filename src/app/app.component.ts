@@ -6,8 +6,16 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   /**
-   * We can use set different phases for the `animate` method that will 
-   * runs seriative.
+   * `void`: Is a reserved state. It use to transition from an unattached 
+   * DOM situation (non-state) to an state.
+   * 
+   * Note: We manage 'from non existance to any state' with this:
+   * 'void => *'
+   * 
+   * Note: Example of animation lifecycle:
+   * in `list1` trigger, we have a final state, but we want to have a 
+   * transition to the state. We should define this transition step by 
+   * step untill it's done (in animate, every style will run serialive).
    */
   animations: [
     trigger('divState', [
@@ -46,7 +54,26 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
         })),
         animate(500)
       ]),
-    ])
+    ]),
+    trigger('list1', [
+      state('in', style({
+        'opacity': 1,
+        'transform': 'translateX(0)'
+      })),
+      transition('void => *', [
+        style({
+          'opacity': 0,
+          'transform': 'translateX(-50px)'
+        }),
+        animate(300)
+      ]),
+      transition('* => void', [
+        animate(300, style({
+          'transform': 'translateX(50px)',
+          'opacity': 0
+        }),)
+      ])
+    ]),
   ]
 })
 export class AppComponent {
@@ -65,5 +92,9 @@ export class AppComponent {
 
   onAdd(item) {
     this.list.push(item);
+  }
+
+  onDelete(item) {
+    this.list.splice(this.list.indexOf(item), 1);
   }
 }
