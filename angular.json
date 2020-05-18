@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "angular-animation-tutorial"
+    }
+  },
+  "defaultProject": "angular-animation-tutorial",
+  "cli": {
+    "analytics": false
+  }
 }
