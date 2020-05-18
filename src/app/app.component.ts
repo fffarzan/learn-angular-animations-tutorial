@@ -1,21 +1,12 @@
 import { Component } from '@angular/core';
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   /**
-   * `void`: Is a reserved state. It use to transition from an unattached 
-   * DOM situation (non-state) to an state.
-   * 
-   * Note: We manage 'from non existance to any state' with this:
-   * 'void => *'
-   * 
-   * Note: Example of animation lifecycle:
-   * in `list1` trigger, we have a final state, but we want to have a 
-   * transition to the state. We should define this transition step by 
-   * step untill it's done (in animate, every style will run serialive).
+   * Using `keyframes` method. They're used during transition.
    */
   animations: [
     trigger('divState', [
@@ -71,9 +62,38 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
         animate(300, style({
           'transform': 'translateX(50px)',
           'opacity': 0
-        }),)
+        }))
       ])
     ]),
+    trigger('list2', [
+      state('in', style({
+        'opacity': 1,
+        'transform': 'translateX(0)'
+      })),
+      transition('void => *', [
+        animate(1000, keyframes([
+          style({
+            'transform': 'translateX(-100px)',
+            'opacity': 0,
+            'offset': 0
+          }),
+          style({
+            'transform': 'translateX(-50px)',
+            'opacity': 0.5,
+            'offset': 0.3
+          }),
+          style({
+            'transform': 'translateX(-20px)',
+            'opacity': 1,
+            'offset': 0.8
+          }),
+          style({
+            'transform': 'translateX(0)',
+            'offset': 1
+          })
+        ]))
+      ]),
+    ])
   ]
 })
 export class AppComponent {
