@@ -5,10 +5,6 @@ import { trigger, state, style, transition, animate, keyframes, group } from '@a
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  /**
-   * Using `group` method. We use this method when we have multiple  
-   * animations in same time but different duration.
-   */
   animations: [
     trigger('divState', [
       state('normal', style({
@@ -128,5 +124,13 @@ export class AppComponent {
 
   onDelete(item) {
     this.list.splice(this.list.indexOf(item), 1);
+  }
+
+  animationStarted(event: Event) {
+    console.log(event);
+  }
+
+  animationEnded(event: Event) {
+    console.log(event);
   }
 }
