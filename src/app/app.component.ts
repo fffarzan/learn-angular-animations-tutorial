@@ -6,11 +6,8 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   /**
-   * Note: transition('normal <=> highlighted', animate(300)):
-   * Is the other way of using transition.
-   * 
-   * Note: transition('shrunken <=> *', animate(400)) :
-   * It means 'from any state to shruken' or 'from shrunken to any state'.
+   * We can use set different phases for the `animate` method that will 
+   * runs seriative.
    */
   animations: [
     trigger('divState', [
@@ -40,7 +37,15 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
       })),
       transition('normal => highlighted', animate(300)),
       transition('highlighted => normal', animate(500)),
-      transition('shrunken <=> *', animate(600)),
+      transition('shrunken <=> *', [
+        style({
+          'background-color': 'orange'
+        }),
+        animate(200, style({
+          'border-radius': '50px'
+        })),
+        animate(500)
+      ]),
     ])
   ]
 })
