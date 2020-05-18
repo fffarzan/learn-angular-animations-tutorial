@@ -5,13 +5,8 @@
       <button class="btn btn-primary" (click)="onAnimate()">Animate!</button>
       <button class="btn btn-primary" (click)="onShrink()">Shrink!</button>
       <hr>
-      <!-- 
-        Callbacks: Thery're used to run other code after starting or 
-        finishing an animation.
-
-        Callbacks used as see below
-       -->
-      <div [@divState]="state" (@divState.start)="animationStarted($event)" (@divState.done)="animationEnded($event)" style="width: 100px; height: 100px;"></div>
+      <div [@divState]="state" (@divState.start)="animationStarted($event)" (@divState.done)="animationEnded($event)"
+        style="width: 100px; height: 100px;"></div>
       <br>
       <div [@wildState]="wildState" style="width: 100px; height: 100px;"></div>
     </div>
