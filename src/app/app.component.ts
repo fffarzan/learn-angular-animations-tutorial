@@ -1,19 +1,12 @@
 import { Component } from '@angular/core';
-import { trigger, state, style } from '@angular/animations';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   /**
-   * Animations are just typescript codes with some features.
-   * 
-   * `trigger`: Each animation has a `tirgger()`. With this, we can tell 
-   * angular to trigger an animaion with an special name.
-   * 
-   * `state`: We transition between two situations with `state()`.
-   * 
-   * `style`: In this method, we can bind css styles of state.
+   * `transition`: Describes how to transition from one state to other.
    */
   animations: [
     trigger('divState', [
@@ -24,16 +17,14 @@ import { trigger, state, style } from '@angular/animations';
       state('highlighted', style({
         backgroundColor: 'blue',
         transform: 'translateX(100px)'
-      }))
+      })),
+      transition('normal => highlighted', animate(300)),
+      transition('highlighted => normal', animate(500))
     ])
   ]
 })
 export class AppComponent {
-  /**
-   * This is a condition to control the animation.  
-   */ 
   state: string = 'normal';
-
   list = ['Milk', 'Sugar', 'Bread'];
 
   onAnimate() {
